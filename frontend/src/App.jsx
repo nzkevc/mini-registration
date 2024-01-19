@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import peopleService from './services/people'
 import RegistrationPage from './components/RegistrationPage'
 
 function App() {
@@ -14,10 +15,12 @@ function App() {
 
     const newPerson = { name, birthdate }
     // TODO: implement axios for creating person in backend
-    registrationService.createPerson(newPerson)
+    peopleService.createPerson(newPerson)
       .then(registeredPerson => {
         // add to state
         // clear input fields
+        setName('')
+        setBirthdate('')
         // show notification?
       })
       .catch(error => {
