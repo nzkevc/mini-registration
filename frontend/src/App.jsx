@@ -1,13 +1,22 @@
 import { useState } from 'react'
-import './App.css'
 
+import RegistrationPage from './components/RegistrationPage'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState('')
+  const [birthdate, setBirthdate] = useState('')
+
+  const updateName = event => setName(event.target.value)
+  const updateBirthdate = event => setBirthdate(event.target.value)
 
   return (
     <div>
-      Hello World!! {count}
+      <RegistrationPage
+        name={name}
+        updateName={updateName}
+        birthdate={birthdate}
+        updateBirthdate={updateBirthdate}
+      />
     </div>
   )
 }
