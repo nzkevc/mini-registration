@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import peopleService from './services/people'
 import RegistrationPage from './components/RegistrationPage'
 
 function App() {
+  const [people, setPeople] = useState([])
   const [name, setName] = useState('')
   const [birthdate, setBirthdate] = useState('')
 
+  useEffect(() => {
+    peopleService.getAllPeople()
+      .then(people => setPeople(people))
+  }, [])
+
+  // input onChange handlers
   const updateName = event => setName(event.target.value)
   const updateBirthdate = event => setBirthdate(event.target.value)
 
@@ -14,10 +21,9 @@ function App() {
     event.preventDefault()
 
     const newPerson = { name, birthdate }
-    // TODO: implement axios for creating person in backend
     peopleService.createPerson(newPerson)
       .then(registeredPerson => {
-        // add to state
+        setPeople(people.concat(registeredPerson))
         // clear input fields
         setName('')
         setBirthdate('')
@@ -26,7 +32,6 @@ function App() {
       .catch(error => {
         // show error notification?
       })
-
   }
 
   return (
@@ -38,6 +43,7 @@ function App() {
         handleBirthdateChange={updateBirthdate}
         handleSubmit={registerPerson}
       />
+      {people.map(person => <li key={person.id}>{person.name}</li>)}
     </div>
   )
 }
