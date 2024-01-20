@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import peopleService from './services/people'
 import RegistrationPage from './components/RegistrationPage'
+import ViewingPage from './components/ViewingPage'
 
 function App() {
   const [people, setPeople] = useState([])
@@ -43,7 +44,8 @@ function App() {
         handleBirthdateChange={updateBirthdate}
         handleSubmit={registerPerson}
       />
-      {people.map(person => <li key={person.id}>{person.name}</li>)}
+
+      <ViewingPage data={people} />
     </div>
   )
 }
