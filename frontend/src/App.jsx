@@ -31,7 +31,7 @@ function App() {
         // clear input fields
         setName('')
         setBirthdate('')
-        // show notification?
+        // TODO: create component for showing success notification
       })
       .catch(error => {
         // show error notification?
