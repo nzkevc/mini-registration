@@ -8,6 +8,7 @@ function App() {
   const [people, setPeople] = useState([])
   const [name, setName] = useState('')
   const [birthdate, setBirthdate] = useState('')
+  const [view, setView] = useState('registration')
 
   useEffect(() => {
     peopleService.getAllPeople()
@@ -17,6 +18,8 @@ function App() {
   // input onChange handlers
   const updateName = event => setName(event.target.value)
   const updateBirthdate = event => setBirthdate(event.target.value)
+
+  const changeView = () => setView(view === 'registration' ? 'viewing' : 'registration')
 
   const registerPerson = event => {
     event.preventDefault()
@@ -37,15 +40,19 @@ function App() {
 
   return (
     <div>
-      <RegistrationPage
-        name={name}
-        birthdate={birthdate}
-        handleNameChange={updateName}
-        handleBirthdateChange={updateBirthdate}
-        handleSubmit={registerPerson}
-      />
-
-      <ViewingPage data={people} />
+      {view === 'registration' ?
+        <RegistrationPage
+          name={name}
+          birthdate={birthdate}
+          handleNameChange={updateName}
+          handleBirthdateChange={updateBirthdate}
+          handleSubmit={registerPerson}
+        />
+        :
+        <ViewingPage data={people} />
+      }
+      {/* TODO: extract into own component? */}
+      <button onClick={changeView}>change view</button>
     </div>
   )
 }

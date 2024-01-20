@@ -6,9 +6,6 @@ const RegistrationPage = ({ name, handleNameChange, birthdate, handleBirthdateCh
         <div>Name: <input value={name} onChange={handleNameChange} /></div>
         <div>Birthdate: <input value={birthdate} onChange={handleBirthdateChange} /></div>
         <button type='submit'>submit</button>
-
-        {/* TODO: implement switching pages */}
-        <div></div>
       </form>
     </div>
   )
