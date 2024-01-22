@@ -49,6 +49,8 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
+  } else {
+    return response.status(error.response.status).json({ error: error.message })
   }
 }
 
