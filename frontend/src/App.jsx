@@ -52,7 +52,9 @@ function App() {
 
   return (
     <Box sx={{
-      height: '100vh',
+      height: '90vh',
+      width: '90wv',
+      boxSizing: 'border-box',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -70,7 +72,7 @@ function App() {
         <ViewingPage data={people} />
       }
       <Button variant='contained' onClick={changeView} sx={{
-        position: 'relative',
+        position: 'absolute',
         bottom: 16,
         right: 16,
       }}>Change View</Button>

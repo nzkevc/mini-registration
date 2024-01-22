@@ -8,7 +8,11 @@ const RegistrationPage = ({ name, handleNameChange, birthdate, handleBirthdateCh
   return (
     <Box
       sx={{
-        height: '25em'
+        height: '80%',
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       }}
       component="form"
       noValidate
