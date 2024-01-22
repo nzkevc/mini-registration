@@ -18,11 +18,18 @@ mongoose.connect(url)
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    // TODO: validation
+    minLength: 2,
+    required: true,
   },
   birthdate: {
     type: String,
-    // TODO: validation
+    required: true,
+    validate: {
+      validator: v => {
+        return /^(3[01]|[12][0-9]|0?[1-9])(\/)(1[0-2]|0?[1-9])\2[0-9]{4}$/.test(v)
+      },
+      message: props => `${props.value} is invalid. Please enter your birthdate in the format: dd/mm/yyyy`
+    }
   }
 })
 

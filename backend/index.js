@@ -44,14 +44,14 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-const errorHandler = (error, request, response) => {
-  console.error(error.message)
+const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).json({ error: 'malformatted id' })
-  } else {
+  } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
+  } else {
+    return response.status(error.response.status).json({ error: error.message })
   }
-  // TODO: add error handling for ValidationError
 }
 
 app.use(errorHandler)

@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react'
 import peopleService from './services/people'
 import RegistrationPage from './components/RegistrationPage'
 import ViewingPage from './components/ViewingPage'
+import Notification from './components/Notification'
 
 function App() {
   const [people, setPeople] = useState([])
   const [name, setName] = useState('')
   const [birthdate, setBirthdate] = useState('')
   const [view, setView] = useState('registration')
+  const [alert, setAlert] = useState('')
 
   useEffect(() => {
     peopleService.getAllPeople()
@@ -31,15 +33,25 @@ function App() {
         // clear input fields
         setName('')
         setBirthdate('')
-        // TODO: create component for showing success notification
+        // show success notification
+        setAlert(`successfully added ${registeredPerson.name} to server`)
+        setTimeout(() => {
+          setAlert(null)
+        }, 5000)
       })
       .catch(error => {
         // show error notification?
+        console.log(error)
+        setAlert(`error: ${error.response.data.error}`)
+        setTimeout(() => {
+          setAlert(null)
+        }, 5000)
       })
   }
 
   return (
     <div>
+      <Notification message={alert} />
       {view === 'registration' ?
         <RegistrationPage
           name={name}
