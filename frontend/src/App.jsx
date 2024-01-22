@@ -5,12 +5,13 @@ import RegistrationPage from './components/RegistrationPage'
 import ViewingPage from './components/ViewingPage'
 import Notification from './components/Notification'
 
+
 function App() {
   const [people, setPeople] = useState([])
   const [name, setName] = useState('')
   const [birthdate, setBirthdate] = useState('')
   const [view, setView] = useState('registration')
-  const [alert, setAlert] = useState('')
+  const [alert, setAlert] = useState({ severity: null, message: 'Nothing to alert right now!' })
 
   useEffect(() => {
     peopleService.getAllPeople()
@@ -34,24 +35,22 @@ function App() {
         setName('')
         setBirthdate('')
         // show success notification
-        setAlert(`successfully added ${registeredPerson.name} to server`)
+        setAlert({ severity: 'success', message: `Successfully added ${registeredPerson.name} to server!` })
         setTimeout(() => {
-          setAlert(null)
+          setAlert({ severity: null, message: 'Nothing to alert right now!' })
         }, 5000)
       })
       .catch(error => {
-        // show error notification?
-        console.log(error)
-        setAlert(`error: ${error.response.data.error}`)
+        setAlert({ severity: 'error', message: `${error.response.data.error}` })
         setTimeout(() => {
-          setAlert(null)
+          setAlert({ severity: null, message: 'Nothing to alert right now!' })
         }, 5000)
       })
   }
 
   return (
     <div>
-      <Notification message={alert} />
+      <Notification alert={alert} />
       {view === 'registration' ?
         <RegistrationPage
           name={name}
@@ -63,7 +62,6 @@ function App() {
         :
         <ViewingPage data={people} />
       }
-      {/* TODO: extract into own component? */}
       <button onClick={changeView}>change view</button>
     </div>
   )
