@@ -4,6 +4,8 @@ import peopleService from './services/people'
 import RegistrationPage from './components/RegistrationPage'
 import ViewingPage from './components/ViewingPage'
 import Notification from './components/Notification'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 
 
 function App() {
@@ -49,7 +51,12 @@ function App() {
   }
 
   return (
-    <div>
+    <Box sx={{
+      height: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
       <Notification alert={alert} />
       {view === 'registration' ?
         <RegistrationPage
@@ -62,8 +69,12 @@ function App() {
         :
         <ViewingPage data={people} />
       }
-      <button onClick={changeView}>change view</button>
-    </div>
+      <Button variant='contained' onClick={changeView} sx={{
+        position: 'relative',
+        bottom: 16,
+        right: 16,
+      }}>Change View</Button>
+    </Box>
   )
 }
 
